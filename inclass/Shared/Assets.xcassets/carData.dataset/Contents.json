@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "carData.json",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
