@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct AddMedicineView: View {
+    //declaring everything
     @Environment(\.presentationMode) var presentationMode
     @Binding var medicines: [Medicine]
     @State private var name: String = ""
@@ -20,6 +21,7 @@ struct AddMedicineView: View {
     var body: some View {
         VStack {
             Form {
+                //the GUI
                 TextField("Medicine Name", text: $name)
                 TextField("Quantity", text: $quantity)
                 TextField("Description", text: $description)
@@ -33,12 +35,12 @@ struct AddMedicineView: View {
                 Button("Cancel") {
                     presentationMode.wrappedValue.dismiss()
                 }
-                .buttonStyle(PlainButtonStyle())  // Apply a basic style that is universally available
+                .buttonStyle(PlainButtonStyle())  //Apply a basic style button
 
                 Button("Save") {
                     saveMedicine()
                 }
-                .buttonStyle(PlainButtonStyle())  // Apply the same universally available style
+                .buttonStyle(PlainButtonStyle())  //same button
             }
             .padding()
         }
@@ -46,6 +48,7 @@ struct AddMedicineView: View {
         .padding()
     }
 
+    //how it saves from the GUI
     func saveMedicine() {
         let daysSelected = selectedDays.enumerated().compactMap { index, isSelected in isSelected ? daysOfWeek[index] : nil }
         let newMedicine = Medicine(

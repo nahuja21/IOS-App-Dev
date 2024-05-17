@@ -1,6 +1,5 @@
 import Foundation
 
-
 struct Medicine: Identifiable {
     var id = UUID()
     var name: String

@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var selectedMedicine: Medicine?
     @State private var selectedDayForRemoval: String = "Monday"
 
+    //add all the buttons to the main page
     var body: some View {
         VStack {
             Spacer()
@@ -51,12 +52,7 @@ struct ContentView: View {
             .buttonStyle(PrimaryButtonStyle())
 
             if showDescriptions {
-                List(medicines, id: \.id) { medicine in
-                    Button(medicine.name) {
-                        selectedMedicine = medicine
-                    }
-                }
-                .frame(width: 300, height: 400)
+                listMedicines
             }
 
             Spacer()
@@ -66,6 +62,28 @@ struct ContentView: View {
         }
     }
 
+    //save list of all the meds
+    var listMedicines: some View {
+        List(medicines, id: \.id) { medicine in
+            VStack(alignment: .leading) {
+                Text(medicine.name)
+                    .font(.headline)
+                    .padding(.bottom, 2)
+                Text("Dosage: \(medicine.quantity)")
+                    .font(.subheadline)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.blue.opacity(0.1))
+            .cornerRadius(10)
+            .padding(.horizontal)
+            .onTapGesture {
+                selectedMedicine = medicine
+            }
+        }
+    }
+
+    //make the remove with trash cans show up
     var removalMenu: some View {
         VStack(alignment: .leading) {
             Button("Back") {
@@ -95,7 +113,7 @@ struct ContentView: View {
         }
         .padding()
     }
-
+    //more remove medicine logic
     func removeMedicine(_ medicine: Medicine, fromDay: String) {
         if let index = medicines.firstIndex(where: { $0.id == medicine.id }) {
             medicines[index].days.removeAll { $0 == fromDay }
@@ -105,7 +123,7 @@ struct ContentView: View {
         }
     }
 }
-
+//button code to make sure all the buttons are the same
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
